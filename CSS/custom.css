@@ -10,13 +10,20 @@ header {
   background-color: #666;
   padding: 20px;
   text-align: center;
-  font-size: 35px;
+  font-size: 35vw;
   color: white;
 }
 
 section {
   display: -webkit-flex;
   display: flex;
+}
+
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
 }
 
 article {
@@ -27,16 +34,8 @@ article {
   padding: 10px;
 }
 
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
-
 @media (max-width: 600px) {
   section {
     -webkit-flex-direction: column;
     flex-direction: column;
   }
-}
