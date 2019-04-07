@@ -5,32 +5,15 @@ body {
 
 .header {
 	height: 20vh;
-  padding: 30px ;
+	max-height: 20vh;
+  padding: 5vmin ;
   background: #555;
   color: #f1f1f1;
   text-align: center;
-  font-size: 50px;
+  font-size: 20vmin;
 }
 
 .content {
-  padding: 16px;
+  padding: 2vmin;
   height: 70vh;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.sticky + .content {
-  padding-top: 102px;
-}
-
-.ageGroupSection{
-	height: 50%;
-}
-
-.quizTopicSection{
-	height: 50%;
 }
