@@ -4,7 +4,7 @@ body {
 }
 
 .header {
-	height: 30%;
+	height: 30vh;
   padding: 30px ;
   background: #555;
   color: #f1f1f1;
@@ -14,7 +14,7 @@ body {
 
 .content {
   padding: 16px;
-  height: 70%;
+  height: 70vh;
 }
 
 .sticky {
