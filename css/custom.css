@@ -4,9 +4,17 @@ body {
 }
 
 .header {
-  padding: 10px 16px;
+	height: 30%;
+  padding: 30px ;
   background: #555;
   color: #f1f1f1;
+  text-align: center;
+  font-size: 50px;
+}
+
+.content {
+  padding: 16px;
+  height: 70%;
 }
 
 .sticky {
@@ -17,4 +25,12 @@ body {
 
 .sticky + .content {
   padding-top: 102px;
+}
+
+.ageGroupSection{
+	height: 50%;
+}
+
+.quizTopicSection{
+	height: 50%;
 }
