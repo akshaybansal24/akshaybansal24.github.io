@@ -20,8 +20,15 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	console.log($scope.selectedTopics);
 	$scope.disablePrevBtn = true;
 	$scope.disableNextBtn = false;
+	$scope.total;
+	$scope.unansweredQuestions;
+	$scope.wrongAnswers;
+
 
 	$scope.onLoad = function(){
+		$scope.total = 0;
+		$scope.unansweredQuestions = 0;
+		$scope.wrongAnswers = 0;
 		$scope.userType = localStorage.getItem('userType');
 		var listOfSelectedTopics = localStorage.getItem('selectedTopics');
 		var splitSelectedTopics = listOfSelectedTopics.split(",");
@@ -164,6 +171,24 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		localStorage.setItem('selectedTopics',$scope.selectedTopicsForChange);
 		var path = "index.html";
  		window.location.href = path;
+	}
+
+	$scope.endQuiz = function(){
+		for(question in $scope.listOfQuestionAnswer){
+			if($scope.listOfQuestionAnswer[question].correctAnswer == $scope.listOfQuestionAnswer[question].givenAnswer){
+				$scope.total = $scope.total+1;
+			}
+			else if($scope.listOfQuestionAnswer[question].givenAnswer == undefined || $scope.listOfQuestionAnswer[question].givenAnswer==null || $scope.listOfQuestionAnswer[question].givenAnswer==""){
+				$scope.unansweredQuestions = $scope.unansweredQuestions + 1;
+			}
+			else{
+				$scope.wrongAnswers = $scope.wrongAnswers + 1;
+			}
+		}
+
+		console.log($scope.total);
+		console.log($scope.unansweredQuestions);
+		console.log($scope.wrongAnswers);
 	}
 
 }]);
