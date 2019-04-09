@@ -38,8 +38,8 @@ body {
 }
 
 .wrapper {
-  text-align: left;
+  /*text-align: left;*/
   display: inline-block;
-  position: relative; 
-  padding: 5vmin;
+  /*position: absolute; 
+  padding: 3vmin;*/
 }

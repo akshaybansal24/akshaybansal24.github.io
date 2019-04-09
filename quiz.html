@@ -21,16 +21,16 @@
 
 		<div ng-hide="isResultTab">
 
-			<div class="header" id="pageHeader">
+			<div class="header" style="height: 15vh;max-height: 15vh;" id="pageHeader">
 				<h2 >Quiz</h2>
 			</div>
 
-			<div class="card " style=" width: 100vw;text-align: left;max-height: 80vh;">
-				<div class="card-header" style="height: 20vh;max-height: 20vh">
+			<div class="card " style=" width: 100vw;text-align: left;max-height: 85vh;height: 85vh;">
+				<div class="card-header" style="height: 25vh;max-height: 25vh">
 					<p style="text-align: left;font-size: 5vmin">Q{{currentQuestionNumber+1}}. {{currentQuestion}}</p>
 				</div>
 
-				<div class="card-body" style="height: 40vh;max-height: 40vh;max-width: 100vw;overflow-x: scroll;">
+				<div class="card-body" style="height: 45vh;max-height: 45vh;max-width: 100vw;overflow-x: scroll;">
 					
 					<div ng-hide="isAdult && !isHintUsed">
 						<div style="font-size: 4vmin;padding-left: 5vmin;text-align: left">
@@ -56,10 +56,10 @@
 
 				<div class="card-footer" style="height: 30vh;max-height: 30vh;padding: 5vmin;">
 					<div class="wrapper">
-						<button type="button" style="font-size: 5vmin" ng-click="showHint()">Change Topic</button>
-						<button type="button"  style="font-size: 5vmin" ng-click="prevQuestion()">Prev Question</button>
-						<button type="button" style="font-size: 5vmin" ng-click="nextQuestion()">Next Question</button>
-						<button type="button" style="font-size: 5vmin" ng-click="showHint()">End Quiz</button>
+						<button type="button" style="font-size: 5vmin;" ng-click="changeQuizTopic()">Change Topic</button>
+						<button type="button"  ng-disabled="disablePrevBtn" style="font-size: 5vmin" ng-click="prevQuestion()">Prev Question</button>
+						<button type="button" ng-disabled="disableNextBtn"style="font-size: 5vmin" ng-click="nextQuestion()">Next Question</button>
+						<button type="button"  style="font-size: 5vmin" ng-click="showHint()">End Quiz</button>
 					</div>
 				</div>
 

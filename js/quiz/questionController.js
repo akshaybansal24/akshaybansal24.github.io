@@ -2,7 +2,8 @@
 app.controller('questionController',['$scope','$location','$window','quizFactory',function($scope,$location,$window,quizFactory,){
 	
 	$scope.userType = localStorage.getItem('userType');
-	$scope.selectedTopics = localStorage.getItem('selectedTopics');
+	$scope.selectedTopics;
+	$scope.selectedTopicsForChange =  localStorage.getItem('selectedTopics');
 	$scope.difficultyLevel = "";
 	$scope.numOfQuestions;
 	$scope.currentQuestionNumber;
@@ -17,10 +18,14 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	$scope.isHintUsed = false;
 	console.log($scope.userType);
 	console.log($scope.selectedTopics);
+	$scope.disablePrevBtn = true;
+	$scope.disableNextBtn = false;
 
 	$scope.onLoad = function(){
 		$scope.userType = localStorage.getItem('userType');
-		$scope.selectedTopics = localStorage.getItem('selectedTopics');
+		var listOfSelectedTopics = localStorage.getItem('selectedTopics');
+		var splitSelectedTopics = listOfSelectedTopics.split(",");
+		$scope.selectedTopics = splitSelectedTopics[1];
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
 			$scope.isAdult = false;
 			$scope.difficultyLevel = "easy";
@@ -96,6 +101,7 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	}
 
 	$scope.nextQuestion = function(){
+
 		console.log($scope.givenAnswer);
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer = $scope.givenAnswer;
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed = $scope.isHintUsed;
@@ -108,11 +114,20 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		$scope.currentQuestionNumber = $scope.currentQuestionNumber+1;
 		console.log("\n\nnext question: ");
 		console.log(JSON.stringify($scope.listOfQuestionAnswer[$scope.currentQuestionNumber]));
-		$scope.currentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].question;
-		$scope.currentQuestionAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].correctAnswer;
-		$scope.allOptionsCurrentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].answerOptions;
-		$scope.givenAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer;
-		$scope.isHintUsed = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed;
+		if($scope.currentQuestionNumber>=0 && $scope.currentQuestionNumber<=9){
+			$scope.currentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].question;
+			$scope.currentQuestionAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].correctAnswer;
+			$scope.allOptionsCurrentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].answerOptions;
+			$scope.givenAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer;
+			$scope.isHintUsed = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed;
+		}
+		
+		if($scope.currentQuestionNumber>=1){
+			$scope.disablePrevBtn = false;
+		}
+		if($scope.currentQuestionNumber==9){
+			$scope.disableNextBtn = true;
+		}
 	}
 
 	$scope.prevQuestion = function(){
@@ -125,11 +140,27 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		$scope.currentQuestionNumber = $scope.currentQuestionNumber-1;
 		console.log("\n\prev question: ");
 		console.log(JSON.stringify($scope.listOfQuestionAnswer[$scope.currentQuestionNumber]));
-		$scope.currentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].question;
-		$scope.currentQuestionAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].correctAnswer;
-		$scope.allOptionsCurrentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].answerOptions;
-		$scope.givenAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer;
-		$scope.isHintUsed = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed;
+		if($scope.currentQuestionNumber>=0 && $scope.currentQuestionNumber<=9){
+			$scope.currentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].question;
+			$scope.currentQuestionAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].correctAnswer;
+			$scope.allOptionsCurrentQuestion = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].answerOptions;
+			$scope.givenAnswer = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer;
+			$scope.isHintUsed = $scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed;
+		}
+		if($scope.currentQuestionNumber==0){
+			$scope.disablePrevBtn = true;
+		}
+		if($scope.currentQuestionNumber<9){
+			$scope.disableNextBtn = false;
+		}
+	}
+
+	$scope.changeQuizTopic = function(){
+
+		localStorage.setItem('userType',$scope.userType);
+		localStorage.setItem('selectedTopics',$scope.selectedTopicsForChange);
+		var path = "index.html";
+ 		window.location.href = path;
 	}
 
 }]);
