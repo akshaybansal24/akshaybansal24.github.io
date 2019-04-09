@@ -36,3 +36,10 @@ body {
   pointer-events: none;
   }
 }
+
+.wrapper {
+  text-align: left;
+  display: inline-block;
+  position: relative; 
+  padding: 5vmin;
+}

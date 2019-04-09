@@ -9,25 +9,69 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script type="text/javascript" src="js/quiz/quizApp.js"></script>
-  <script type="text/javascript" src="js/quiz/quizController.js"></script>
+  <script type="text/javascript" src="js/quiz/questionController.js"></script>
   <script type="text/javascript" src="js/quiz/quizService.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body ng-app="quizIt" >
-	<div ng-controller="quizController">
-		<div class="header" id="pageHeader">
-			<h2 >QuizIt</h2>
+	<div ng-controller="questionController">
+		<div data-ng-init="onLoad()"></div>
 
+		<div ng-hide="isResultTab">
+
+			<div class="header" id="pageHeader">
+				<h2 >Quiz</h2>
+			</div>
+
+			<div class="card " style=" width: 100vw;text-align: left;max-height: 80vh;">
+				<div class="card-header" style="height: 20vh;max-height: 20vh">
+					<p style="text-align: left;font-size: 5vmin">Q{{currentQuestionNumber+1}}. {{currentQuestion}}</p>
+				</div>
+
+				<div class="card-body" style="height: 40vh;max-height: 40vh;max-width: 100vw;overflow-x: scroll;">
+					
+					<div ng-hide="isAdult && !isHintUsed">
+						<div style="font-size: 4vmin;padding-left: 5vmin;text-align: left">
+							<div  ng-repeat="currOption in allOptionsCurrentQuestion">
+								<input type="radio" name="optionForAnswer" value={{currOption}} ng-model="$parent.givenAnswer">{{currOption}}<br>
+							</div>
+						</div>
+					</div>
+
+					<div ng-show="isAdult && !isHintUsed">
+						<div style="font-size: 5vmin;padding-left: 5vmin;text-align: left">
+							<input type="text" class="form-control" style="max-width: 40vw;"name="answerBox" placeholder="Answer Here" ng-model="givenAnswer">
+						</div>
+						<div style="font-size: 5vmin;padding-left: 5vmin;">
+							<br>
+						</div>
+						<div style="font-size: 5vmin;padding-left: 5vmin;">
+							<button type="button"  ng-click="showHint()">Show Hint</button>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="card-footer" style="height: 30vh;max-height: 30vh;padding: 5vmin;">
+					<div class="wrapper">
+						<button type="button" style="font-size: 5vmin" ng-click="showHint()">Change Topic</button>
+						<button type="button"  style="font-size: 5vmin" ng-click="prevQuestion()">Prev Question</button>
+						<button type="button" style="font-size: 5vmin" ng-click="nextQuestion()">Next Question</button>
+						<button type="button" style="font-size: 5vmin" ng-click="showHint()">End Quiz</button>
+					</div>
+				</div>
+
+			</div>
 		</div>
-			<p style="text-align: center;font-size: 10vmin">Q1. What is the sum of 2+2?</p>
-			<p>{{userType}}</p>
-			<button type="button" class="btn" ng-click="startQuiz1()">Start Quiz</button>
+
+		<div ng-show="isResultTab">
+			<div class="header" id="pageHeader">
+				<h2 >Result</h2>
+			</div>
 		</div>
-		<div>
-			
-		</div>
+
 	</div>
 </body>
 </html>

@@ -1,0 +1,3 @@
+app.controller('questionController',['$scope','$location','$window','quizFactory',function($scope,$location,$window,quizFactory,){
+	$scope.userType = localStorage.getItem('userType');
+}]);

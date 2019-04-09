@@ -32,15 +32,20 @@ app.controller('quizController',['$scope','$location','$window','quizFactory',fu
 	}
 
 	$scope.startQuiz=function(){
+		var selectedId = "";
 		for(tpc in $scope.lisOfTopic){
 			if($scope.lisOfTopic[tpc].isSelected == true){
+				selectedId = $scope.lisOfTopic[tpc].id;
 				$scope.selecetdTopics.push($scope.lisOfTopic[tpc]);
 			}
 			//console.log($scope.selecetdTopics);
 			//console.log($scope.userType);
 		}
+		localStorage.setItem('userType',$scope.userType);
+		localStorage.setItem('selectedTopics',selectedId);
 		var path = "quiz.html";
  		window.location.href = path;
+
 	}
 
 	$scope.startQuiz1=function(){
