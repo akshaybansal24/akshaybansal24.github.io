@@ -26,57 +26,26 @@
 			<div class="card " style=" width: 70vw;text-align: center;max-height: 30vh;">
 				<div class="card-header">Select Age Group</div>
 				<div class="card-body" style="max-height: 20vh; overflow-y: scroll;">
-					<input type="radio" name="ageGroup" value="child">Child<br>
-					<input type="radio" name="ageGroup" value="teen">Teen<br>
-					<input type="radio" name="ageGroup" value="adult">Adult<br>
+					<input type="radio" name="ageGroup" ng-model="userType" value="child">Child<br>
+					<input type="radio" name="ageGroup" ng-model="userType" value="teen">Teen<br>
+					<input type="radio" name="ageGroup" ng-model="userType" value="adult">Adult<br>
 				</div>
 			</div>
 		</div>
 
-		<div align="center">
+		<div align="center" ng-disabled={{showTopics}} ng-class="{'disabled': showTopics}" tooltip={{hoverMsgForTopicPanel}}>
 			<div class="card " style=" width: 70vw;text-align: center;max-height: 50vh;">
 				<div class="card-header">Choose Topic(s)</div>
-				<div class="card-body" style="max-height: 30vh; overflow-y: scroll;">
+				<div class="card-body" style="text-align: left;max-height: 30vh; overflow-y: scroll;">
 					<div ng-repeat="topic in lisOfTopic">
 						<input type="checkbox" name="topic" value="{{topic.id}}" ng-model="topic.isSelected">{{topic.name}}<br>								
 					</div>
 				</div>
-				<div class="card-footer">
-					<button type="button" ng-click="startQuiz()">Start Quiz</button>
+				<div class="card-footer" ng-disabled={{disableStatQuizBtn}} ng-class="{'disabled': disableStatQuizBtn}">
+					<button type="button" class="btn" ng-click="startQuiz()">Start Quiz</button>
 				</div>
 			</div>
 		</div>
-		<!-- End Here-->
-
-		<!--<div class="content" id="ageGroupDiv">
-			<div class="container">
-				<div class="panel-group">
-					<div class="panel panel-default" style="height: 25vh;max-height: 25vh;">
-						<div class="panel-heading" >
-							Select Age Group
-						</div>
-						<div class="panel-body" style="height: 15vh;max-height: 15vh;overflow-y: scroll;">
-							<input type="radio" name="ageGroup" value="child">Child<br>
-							<input type="radio" name="ageGroup" value="teen">Teen<br>
-							<input type="radio" name="ageGroup" value="adult">Adult<br>
-						</div>
-					</div>
-					<div class="panel panel-default" style="height: 40vh; max-height: 40vh;">
-						<div class="panel-heading" >
-							Select Quiz Topic
-						</div>
-						<div class="panel-body" style="height: 30vh; max-height: 30vh; overflow-y: scroll;">
-							<div ng-repeat="topic in lisOfTopic">
-								<input type="checkbox" name="topic" value="{{topic.id}}" ng-model="topic.isSelected">{{topic.name}}<br>								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="submitButton">
-				<button type="button" class="btn" ng-click="startQuiz()">Start Quiz</button>
-			</div>
-		</div> -->
 	</div>
 </body>
 </html>
