@@ -20,17 +20,19 @@
 		<div data-ng-init="onLoad()"></div>
 
 		<div ng-hide="isResultTab">
-
-			<div class="header" style="height: 15vh;max-height: 15vh;" id="pageHeader">
-				<h2 >Quiz</h2>
-			</div>
+			<div class="card " style=" width: 100vw;text-align: center;max-height: 15vh;height: 15vh;">
+				<div class="card-header" style="height: 15vh;max-height: 15vh;text-align: center;background-color:#4D4C4C;font-size: 7vmin">
+					<font color="white"><b>Quiz</b></font>
+					</div>
+					</div>
+		
 
 			<div class="card " style=" width: 100vw;text-align: left;max-height: 85vh;height: 85vh;">
-				<div class="card-header" style="height: 25vh;max-height: 25vh">
+				<div class="card-header" id="ch" style="height: 25vh;max-height: 25vh">
 					<p style="text-align: left;font-size: 5vmin">Q{{currentQuestionNumber+1}}. {{currentQuestion}}</p>
 				</div>
 
-				<div class="card-body" style="height: 45vh;max-height: 45vh;max-width: 100vw;overflow-x: scroll;">
+				<div class="card-body" id="cb" style="height: 45vh;max-height: 45vh;max-width: 100vw;">
 					
 					<div ng-hide="isAdult && !isHintUsed">
 						<div style="font-size: 4vmin;padding-left: 5vmin;text-align: left">
@@ -54,7 +56,7 @@
 
 				</div>
 
-				<div class="card-footer" style="height: 30vh;max-height: 30vh;padding: 5vmin;">
+				<div class="card-footer" id="cf"style="height: 25vh;max-height: 30vh;padding: 5vmin;">
 					<div class="wrapper">
 						<button type="button" style="font-size: 5vmin;" ng-click="changeQuizTopic()">Change Topic</button>
 						<button type="button"  ng-disabled="disablePrevBtn" style="font-size: 5vmin" ng-click="prevQuestion()">Prev Question</button>

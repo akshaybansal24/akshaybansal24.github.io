@@ -29,6 +29,9 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
 			$scope.isAdult = false;
 			$scope.difficultyLevel = "easy";
+			document.getElementById("ch").style.backgroundColor = "#b29d92";
+			document.getElementById("cb").style.backgroundColor = "#e2cec3";
+			document.getElementById("cf").style.backgroundColor = "#b29d92";
 		}
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="teen"){
 			$scope.isAdult = false;
