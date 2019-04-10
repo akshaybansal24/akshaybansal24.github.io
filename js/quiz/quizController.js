@@ -10,6 +10,7 @@ app.controller('quizController',['$scope','$location','$window','quizFactory',fu
 		var usrTyp = localStorage.getItem('userType');
 				if(usrTyp!=undefined && usrTyp!=null && usrTyp!=""){
 					$scope.userType = usrTyp;
+					localStorage.removeItem('userType');
 				}
 		quizFactory.getQuizTopics().then(
 			function(response){
@@ -40,6 +41,7 @@ app.controller('quizController',['$scope','$location','$window','quizFactory',fu
 
 				var slctdTpc = localStorage.getItem('selectedTopics');
 				if(slctdTpc!=undefined && slctdTpc!=null && slctdTpc!=""){
+					localStorage.removeItem('selectedTopics');
 					listOfSelectedTopic = slctdTpc.split(",");
 					console.log(JSON.stringify(listOfSelectedTopic));
 				}
