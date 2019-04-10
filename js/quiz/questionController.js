@@ -288,12 +288,12 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		$scope.wrongAnswers = 0;
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
 			$scope.isAdult = false;
-			document.getElementById("ch").style.backgroundColor = "#b29d92";
-			document.getElementById("cb").style.backgroundColor = "#8cf442";
-			document.getElementById("cf").style.backgroundColor = "#b29d92";
-			document.getElementById("ch1").style.backgroundColor = "#b29d92";
-			document.getElementById("cb1").style.backgroundColor = "#8cf442";
-			document.getElementById("cf1").style.backgroundColor = "#b29d92";
+			document.getElementById("ch").style.backgroundColor = "#FF662D";
+			document.getElementById("cb").style.backgroundColor = "#B95935";
+			document.getElementById("cf").style.backgroundColor = "#FF662D";
+			document.getElementById("ch1").style.backgroundColor = "#FF662D";
+			document.getElementById("cb1").style.backgroundColor = "#B95935";
+			document.getElementById("cf1").style.backgroundColor = "#FF662D";
 		}
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="teen"){
 			$scope.isAdult = false;
