@@ -23,9 +23,16 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	$scope.total;
 	$scope.unansweredQuestions;
 	$scope.wrongAnswers;
+	$scope.percentage;
+	$scope.messageToDisplayForResult;
+	$scope.isDifficultyChanged = false;
+	$scope.messageForDiffilcultyChange;
 
 
 	$scope.onLoad = function(){
+		$scope.messageToDisplayForResult = "";
+		$scope.isDifficultyChanged = false;
+		$scope.messageForDiffilcultyChange = "";
 		$scope.total = 0;
 		$scope.unansweredQuestions = 0;
 		$scope.wrongAnswers = 0;
@@ -36,13 +43,22 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
 			$scope.isAdult = false;
 			$scope.difficultyLevel = "easy";
-			document.getElementById("ch").style.backgroundColor = "#b29d92";
-			document.getElementById("cb").style.backgroundColor = "#e2cec3";
-			document.getElementById("cf").style.backgroundColor = "#b29d92";
+			document.getElementById("ch").style.backgroundColor = "#FF662D";
+			document.getElementById("cb").style.backgroundColor = "#B95935";
+			document.getElementById("cf").style.backgroundColor = "#FF662D";
+			document.getElementById("ch1").style.backgroundColor = "#FF662D";
+			document.getElementById("cb1").style.backgroundColor = "#B95935";
+			document.getElementById("cf1").style.backgroundColor = "#FF662D";
 		}
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="teen"){
 			$scope.isAdult = false;
 			$scope.difficultyLevel = "medium";
+			document.getElementById("ch").style.backgroundColor = "#b29d92";
+			document.getElementById("cb").style.backgroundColor = "#e2cec3";
+			document.getElementById("cf").style.backgroundColor = "#b29d92";
+			document.getElementById("ch1").style.backgroundColor = "#b29d92";
+			document.getElementById("cb1").style.backgroundColor = "#e2cec3";
+			document.getElementById("cf1").style.backgroundColor = "#b29d92";
 		}
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="adult"){
 			$scope.isAdult = true;
@@ -76,13 +92,13 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 					var questionAnswer = response.data.results[question];
 					var questionAnswerToAdd = {};
 					//console.log(JSON.stringify(questionAnswer));
-					questionAnswerToAdd.question = questionAnswer.question;
-					questionAnswerToAdd.correctAnswer = questionAnswer.correct_answer;
+					questionAnswerToAdd.question = convertHtmlToText(questionAnswer.question);
+					questionAnswerToAdd.correctAnswer = convertHtmlToText(questionAnswer.correct_answer);
 					//console.log(JSON.stringify(questionAnswerToAdd.correctAnswer));
 					var options = [];
 					options.push(questionAnswer.correct_answer);
 					for(option in questionAnswer.incorrect_answers){
-						options.push(questionAnswer.incorrect_answers[option]);
+						options.push(convertHtmlToText(questionAnswer.incorrect_answers[option]));
 					}
 					questionAnswerToAdd.answerOptions = options;
 					questionAnswerToAdd.givenAnswer = "";
@@ -189,6 +205,112 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		console.log($scope.total);
 		console.log($scope.unansweredQuestions);
 		console.log($scope.wrongAnswers);
+		$scope.isResultTab = true;
+		$scope.percentage = ($scope.total/10)*100;
+		if($scope.userType=="child"){
+
+			if($scope.percentage>=80){
+				$scope.messageToDisplayForResult = "Congratulations and Celebrations!!! You scored " + $scope.percentage + "% in the quiz";
+				var oldLevel = $scope.difficultyLevel;
+				if($scope.difficultyLevel=="easy")
+					$scope.difficultyLevel = "medium";
+				else
+					$scope.difficultyLevel = "hard";
+				if(oldLevel!=$scope.difficultyLevel){
+					$scope.isDifficultyChanged = true;
+					$scope.messageForDiffilcultyChange = "You have made progress from "+oldLevel + " to " +  $scope.difficultyLevel+ " level.";
+				}
+			}
+			if($scope.percentage<80 && $scope.percentage>=60){
+				$scope.messageToDisplayForResult = "Champion in progress!!! You scored " + $scope.percentage + "% in the quiz";
+			}
+			if($scope.percentage<60){
+				$scope.messageToDisplayForResult = "Don't worry, you will do better next time!!! You scored " + $scope.percentage + "% in the quiz";
+			}
+		}
+		if($scope.userType=="teen"){
+			var oldLevel = $scope.difficultyLevel;
+			if($scope.percentage>=80){
+				$scope.messageToDisplayForResult = "Outstanding!!! You scored " + $scope.percentage + "% in the quiz";
+				$scope.difficultyLevel = "hard";
+			}
+			if($scope.percentage<80 && $scope.percentage>=60){
+				$scope.messageToDisplayForResult = "Good Job!!! You scored " + $scope.percentage + "% in the quiz";
+				$scope.difficultyLevel = "medium";
+			}
+			if($scope.percentage<60){
+				$scope.messageToDisplayForResult = "Need some more efforts!!! You scored " + $scope.percentage + "% in the quiz";
+				$scope.difficultyLevel = "easy";
+			}
+			if(oldLevel!=$scope.difficultyLevel){
+				$scope.isDifficultyChanged = true;
+				$scope.messageForDiffilcultyChange = "Your difficulty level is changed from "+oldLevel + " to " +  $scope.difficultyLevel;
+			}
+		}
+		if($scope.userType=="adult"){
+			var oldLevel = $scope.difficultyLevel;
+			$scope.messageToDisplayForResult = "You have scored " + $scope.percentage + " in the quiz";
+			if($scope.percentage>=80){
+				$scope.difficultyLevel = "hard";
+			}
+			if($scope.percentage<80 && $scope.percentage>=60){
+				$scope.difficultyLevel = "medium";
+			}
+			if($scope.percentage<60){
+				$scope.difficultyLevel = "easy";
+			}
+			if(oldLevel!=$scope.difficultyLevel){
+				$scope.isDifficultyChanged = true;
+				$scope.messageForDiffilcultyChange = "Your difficulty level is changed from "+oldLevel + " to " +  $scope.difficultyLevel;
+			}
+		}
+	}
+
+	var convertHtmlToText = function(html){
+		var txt = document.createElement("textarea");
+    	txt.innerHTML = html;
+    	return txt.value;
+	}
+
+	$scope.restartQuiz = function(){
+		console.log("i can come here");
+		$scope.disablePrevBtn = true;
+		$scope.disableNextBtn = false;
+		$scope.listOfQuestionAnswer = [];
+		$scope.isHintUsed = false;
+		$scope.isAdult = false;
+		$scope.isResultTab = false;
+		$scope.messageToDisplayForResult = "";
+		$scope.isDifficultyChanged = false;
+		$scope.messageForDiffilcultyChange = "";
+		$scope.total = 0;
+		$scope.unansweredQuestions = 0;
+		$scope.wrongAnswers = 0;
+		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
+			$scope.isAdult = false;
+			document.getElementById("ch").style.backgroundColor = "#b29d92";
+			document.getElementById("cb").style.backgroundColor = "#8cf442";
+			document.getElementById("cf").style.backgroundColor = "#b29d92";
+			document.getElementById("ch1").style.backgroundColor = "#b29d92";
+			document.getElementById("cb1").style.backgroundColor = "#8cf442";
+			document.getElementById("cf1").style.backgroundColor = "#b29d92";
+		}
+		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="teen"){
+			$scope.isAdult = false;
+			document.getElementById("ch").style.backgroundColor = "#b29d92";
+			document.getElementById("cb").style.backgroundColor = "#e2cec3";
+			document.getElementById("cf").style.backgroundColor = "#b29d92";
+			document.getElementById("ch1").style.backgroundColor = "#b29d92";
+			document.getElementById("cb1").style.backgroundColor = "#e2cec3";
+			document.getElementById("cf1").style.backgroundColor = "#b29d92";
+		}
+		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="adult"){
+			$scope.isAdult = true;
+		}
+		$scope.numOfQuestions = 10;
+		$scope.currentQuestionNumber = 0;
+
+		getSessionToken();
 	}
 
 }]);

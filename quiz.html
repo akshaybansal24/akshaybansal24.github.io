@@ -58,10 +58,11 @@
 
 				<div class="card-footer" id="cf"style="height: 25vh;max-height: 30vh;padding: 5vmin;">
 					<div class="wrapper">
-						<button type="button" style="font-size: 5vmin;" ng-click="changeQuizTopic()">Change Topic</button>
-						<button type="button"  ng-disabled="disablePrevBtn" style="font-size: 5vmin" ng-click="prevQuestion()">Prev Question</button>
-						<button type="button" ng-disabled="disableNextBtn"style="font-size: 5vmin" ng-click="nextQuestion()">Next Question</button>
-						<button type="button"  style="font-size: 5vmin" ng-click="endQuiz()">End Quiz</button>
+						
+						<button type="button"  ng-disabled="disablePrevBtn" style="font-size: 5vmin;margin: 2vmin;" ng-click="prevQuestion()">Prev Question</button>
+						<button type="button" ng-disabled="disableNextBtn"style="font-size: 5vmin;margin: 2vmin;" ng-click="nextQuestion()">Next Question</button>
+						<button type="button" style="font-size: 5vmin;margin: 2vmin;" ng-click="changeQuizTopic()">Change Topic</button>
+						<button type="button"  style="font-size: 5vmin;margin: 2vmin;" ng-click="endQuiz()">End Quiz</button>
 					</div>
 				</div>
 
@@ -69,8 +70,60 @@
 		</div>
 
 		<div ng-show="isResultTab">
-			<div class="header" id="pageHeader">
-				<h2 >Result</h2>
+			<div class="card " style=" width: 100vw;text-align: center;max-height: 15vh;height: 15vh;text-align: center;">
+				<div class="card-header" style="height: 15vh;max-height: 15vh;text-align: center;background-color:#4D4C4C;font-size: 7vmin">
+					<font color="white"><b>Result</b></font>
+					</div>
+					</div>
+		
+
+			<div class="card " style=" width: 100vw;text-align: left;max-height: 85vh;height: 85vh;">
+				<div class="card-header" id="ch1" style="height: 25vh;max-height: 25vh">
+					<p style="text-align: left;font-size: 5vmin">{{messageToDisplayForResult}}</p>
+				</div>
+
+				<div class="card-body" id="cb1" style="height: 45vh;max-height: 45vh;max-width: 100vw; overflow-y: scroll">
+
+					<div class="table-responsive-sm" style="border-radius: 5vmin;width: 50vw;margin: 0vmin auto;float: none;">
+						<table class="table w-auto h-auto" style="padding: 0vmin;">
+							<tbody style="padding: 0vmin;">
+								<tr style="padding: 0vmin;">
+									<th style="text-align: center;padding: 0vmin;">Total</th>
+									<th style="text-align: center;padding: 0vmin;">10</th>
+								</tr>
+								<tr style="padding: 0vmin;">
+									<th style="text-align: center;padding: 0vmin;">Questions Answered</th>
+									<th style="text-align: center;padding: 0vmin;">{{total + wrongAnswers}}</th>
+								</tr>
+								<tr style="padding: 0vmin;">
+									<th style="text-align: center;padding: 0vmin;">Correct Answers</th>
+									<th style="text-align: center;padding: 0vmin;">{{total}}</th>
+								</tr>
+								<tr style="padding: 0vmin;">
+									<th style="text-align: center;padding: 0vmin;">Incorrect Answers</th>
+									<th style="text-align: center;padding: 0vmin;">{{wrongAnswers}}</th>
+								</tr>
+								<tr style="padding: 0vmin;">
+									<th style="text-align: center;padding: 0vmin;">Not Answered</th>
+									<th style="text-align: center;padding: 0vmin;">{{unansweredQuestions}}</th>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+
+					<div ng-show="isDifficultyChanged">
+						<p>{{messageForDiffilcultyChange}}</p><br>
+					</div>
+
+				</div>
+
+				<div class="card-footer" id="cf1" style="height: 25vh;max-height: 30vh;padding: 5vmin; text-align: center;">
+					<div class="wrapper" style="text-align: center">
+						<button type="button" style="font-size: 5vmin;" ng-click="restartQuiz()">Restart Quiz</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 
