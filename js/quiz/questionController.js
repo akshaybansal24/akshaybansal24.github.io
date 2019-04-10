@@ -84,7 +84,7 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	}
 
 	var getQuizQuestions = function(){
-		quizFactory.getQuizQuestions($scope.selectedTopics,$scope.difficultyLevel,$scope.sessionToken).then(
+		quizFactory.getQuizQuestions($scope.selectedTopics,$scope.difficultyLevel,$scope.sessionToken,$scope.userType).then(
 			function(response){
 				console.log(JSON.stringify(response.data.results));
 				for(question in response.data.results){
