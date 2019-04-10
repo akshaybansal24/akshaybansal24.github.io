@@ -1,5 +1,5 @@
 
-app.controller('questionController',['$scope','$location','$window','quizFactory',function($scope,$location,$window,quizFactory,){
+app.controller('childController',['$scope','$location','$window','quizFactory',function($scope,$location,$window,quizFactory,){
 	
 	$scope.userType = localStorage.getItem('userType');
 	$scope.selectedTopics;
@@ -43,12 +43,6 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
 			$scope.isAdult = false;
 			$scope.difficultyLevel = "easy";
-			document.getElementById("ch").style.backgroundColor = "#FF662D";
-			document.getElementById("cb").style.backgroundColor = "#B95935";
-			document.getElementById("cf").style.backgroundColor = "#FF662D";
-			document.getElementById("ch1").style.backgroundColor = "#FF662D";
-			document.getElementById("cb1").style.backgroundColor = "#B95935";
-			document.getElementById("cf1").style.backgroundColor = "#FF662D";
 		}
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="teen"){
 			$scope.isAdult = false;
@@ -133,6 +127,7 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed = $scope.isHintUsed;
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="adult"){
 			$scope.isAdult = true;
+			$scope.difficultyLevel = "hard";
 		}
 		console.log("\n\nafter question: ");
 		console.log(JSON.stringify($scope.listOfQuestionAnswer[$scope.currentQuestionNumber]));
@@ -160,6 +155,7 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed = $scope.isHintUsed;
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="adult"){
 			$scope.isAdult = true;
+			$scope.difficultyLevel = "hard";
 		}
 		$scope.currentQuestionNumber = $scope.currentQuestionNumber-1;
 		console.log("\n\prev question: ");
@@ -288,12 +284,7 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		$scope.wrongAnswers = 0;
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="child"){
 			$scope.isAdult = false;
-			document.getElementById("ch").style.backgroundColor = "#FF662D";
-			document.getElementById("cb").style.backgroundColor = "#B95935";
-			document.getElementById("cf").style.backgroundColor = "#FF662D";
-			document.getElementById("ch1").style.backgroundColor = "#FF662D";
-			document.getElementById("cb1").style.backgroundColor = "#B95935";
-			document.getElementById("cf1").style.backgroundColor = "#FF662D";
+			
 		}
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="teen"){
 			$scope.isAdult = false;

@@ -68,16 +68,18 @@ app.controller('quizController',['$scope','$location','$window','quizFactory',fu
 			//console.log($scope.selecetdTopics);
 			//console.log($scope.userType);
 		}
+
 		localStorage.setItem('userType',$scope.userType);
 		localStorage.setItem('selectedTopics',selectedId);
-		var path = "quiz.html";
- 		window.location.href = path;
-
-	}
-
-	$scope.startQuiz1=function(){
-			//console.log($scope.selecetdTopics);
-			//console.log($scope.userType);
+		if($scope.userType=='child'){
+			var path = "child.html";
+			window.location.href = path;
+		}
+		else{
+			var path = "quiz.html";
+			window.location.href = path;
+		}		
+ 		
 	}
 
 	$scope.$watch('userType',function(newValue,oldValue,scope){
