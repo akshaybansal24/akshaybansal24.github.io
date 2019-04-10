@@ -27,9 +27,11 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	$scope.messageToDisplayForResult;
 	$scope.isDifficultyChanged = false;
 	$scope.messageForDiffilcultyChange;
+	$scope.displayTotal=0;
 
 
 	$scope.onLoad = function(){
+		$scope.displayTotal = 0;
 		$scope.messageToDisplayForResult = "";
 		$scope.isDifficultyChanged = false;
 		$scope.messageForDiffilcultyChange = "";
@@ -131,6 +133,17 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 		console.log($scope.givenAnswer);
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer = $scope.givenAnswer;
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed = $scope.isHintUsed;
+		var dispTotal = 0;
+		for(question in $scope.listOfQuestionAnswer){
+			if($scope.listOfQuestionAnswer[question].givenAnswer!=undefined &&
+				$scope.listOfQuestionAnswer[question].givenAnswer!=null &&
+				$scope.listOfQuestionAnswer[question].givenAnswer!=""){
+				console.log("yaha aaya")
+				dispTotal = dispTotal + 1;
+			}
+		}
+
+		$scope.displayTotal = dispTotal;
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="adult"){
 			$scope.isAdult = true;
 		}
@@ -156,8 +169,20 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	}
 
 	$scope.prevQuestion = function(){
+		
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].givenAnswer = $scope.givenAnswer;
 		$scope.listOfQuestionAnswer[$scope.currentQuestionNumber].isHintUsed = $scope.isHintUsed;
+		var dispTotal = 0;
+		for(question in $scope.listOfQuestionAnswer){
+			if($scope.listOfQuestionAnswer[question].givenAnswer!=undefined &&
+				$scope.listOfQuestionAnswer[question].givenAnswer!=null &&
+				$scope.listOfQuestionAnswer[question].givenAnswer!=""){
+				console.log("yaha aaya")
+				dispTotal = dispTotal + 1;
+			}
+		}
+
+		$scope.displayTotal = dispTotal;
 		if($scope.userType!=undefined && $scope.userType!=null && $scope.userType=="adult"){
 			$scope.isAdult = true;
 		}
@@ -273,6 +298,7 @@ app.controller('questionController',['$scope','$location','$window','quizFactory
 	}
 
 	$scope.restartQuiz = function(){
+		$scope.displayTotal=0;
 		console.log("i can come here");
 		$scope.disablePrevBtn = true;
 		$scope.disableNextBtn = false;
